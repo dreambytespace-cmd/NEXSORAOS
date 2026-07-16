@@ -24,6 +24,7 @@ export default function WebGLShader({ dark }) {
       uniform float distortion;
       uniform vec3 color1;
       uniform vec3 color2;
+      uniform float inverse;
 
       void main() {
         vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
@@ -35,7 +36,7 @@ export default function WebGLShader({ dark }) {
         float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
         float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
         vec3 base = mix(color1, color2, p.y * 0.5 + 0.5);
-        gl_FragColor = vec4(base + vec3(r, g, b) * 0.42, 1.0);
+        gl_FragColor = vec4(base + vec3(r, g, b) * 0.42 * inverse, 1.0);
       }
     `;
 
@@ -58,6 +59,7 @@ export default function WebGLShader({ dark }) {
       distortion: { value: 0.07 },
       color1: { value: new THREE.Color(0x040616) },
       color2: { value: new THREE.Color(0x051729) },
+      inverse: { value: 1.0 },
     };
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute(
@@ -109,6 +111,7 @@ export default function WebGLShader({ dark }) {
     if (materialRef.current) {
       materialRef.current.uniforms.color1.value.set(dark ? 0x0a0a1a : 0xf7f7f7);
       materialRef.current.uniforms.color2.value.set(dark ? 0x1a1a3a : 0xe0e0e0);
+      materialRef.current.uniforms.inverse.value = dark ? 1.0 : -1.0;
     }
   }, [dark]);
 
