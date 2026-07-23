@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { BarChart3, Bot, CalendarDays, CircleDollarSign, Clock3, MessageCircle, PenLine, Sparkles } from "lucide-react";
+import { BarChart3, Bot, CalendarDays, CircleDollarSign, Clock3, MessageCircle, PenLine } from "lucide-react";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import FaqSection from "./components/FaqSection";
 import FlowArt, { FlowSection } from "./components/ui/story-scroll";
-import RadialOrbitalTimeline from "./components/ui/radial-orbital-timeline";
+import AnalyticsDashboard from "./components/AnalyticsDashboard";
 import DetailedWaitlistForm from "./DetailedWaitlistForm";
 
 const orbitItems = [
@@ -50,6 +50,7 @@ const orbitItems = [
     status: "pending",
   },
 ];
+void orbitItems;
 const stories = [
   {
     number: "01",
@@ -131,7 +132,7 @@ function App() {
       <Header dark={dark} setDark={setDark} />
       <main className="pt-16">
         <HeroSection dark={dark} />
-        <section id="features" className="px-5 py-24 md:px-8">
+        <section id="features" className="scroll-mt-24 px-5 py-20 md:px-8 md:py-24">
           <div className="mx-auto max-w-6xl text-center">
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -141,46 +142,53 @@ function App() {
             >
               Everything you need
             </motion.p>
-            <h2 className="mt-4 text-4xl font-bold tracking-tight text-primary sm:text-6xl">
+            <h2 className="mt-4 text-4xl font-bold tracking-tight text-primary sm:text-5xl">
               One system. Every creator tool.
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-secondary">
               Stop paying for 10 different tools. Nexora OS has everything in
               one place.
             </p>
-            <RadialOrbitalTimeline timelineData={orbitItems} dark={dark} />
+            <div className="mt-12 text-left">
+              <AnalyticsDashboard />
+            </div>
           </div>
         </section>
-        <FlowArt id="workflow" aria-label="Nexora creator workflow">
+        <FlowArt
+          id="workflow"
+          aria-label="Nexora creator workflow"
+          className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-5 overflow-hidden px-5 md:grid-cols-2 md:px-8"
+        >
           {stories.map((story) => {
             const Icon = story.icon;
             return (
               <FlowSection
                 key={story.name}
                 aria-label={story.name}
-                className="bg-background text-primary"
+                className="min-w-0 bg-background !p-0 text-primary"
+                cardClassName="!min-h-[20rem] !rounded-[1.5rem] !px-6 !py-6"
               >
                 <p className="text-xs font-bold uppercase tracking-[0.2em]">
                   {story.number} — {story.name}
                 </p>
                 <hr className="my-[2vw] border-none border-t border-current opacity-40" />
                 <div className="flex items-start justify-between gap-8">
-                  <h2 className="text-[clamp(3.5rem,11vw,12rem)] font-bold leading-[0.85] uppercase tracking-tight" dangerouslySetInnerHTML={{ __html: story.title.replace('.', '.<br/>') }} />
+                  <h2 className="text-[clamp(2rem,3.5vw,3.75rem)] font-bold leading-[0.95] uppercase tracking-tight" dangerouslySetInnerHTML={{ __html: story.title.replace('.', '.<br/>') }} />
                   <Icon className="mt-2 hidden h-16 w-16 shrink-0 sm:block" />
                 </div>
                 <hr className="my-[2vw] border-none border-t border-current opacity-40" />
-                <p className="max-w-[50ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed">
+                <p className="max-w-[58ch] text-[clamp(0.95rem,1.6vw,1.35rem)] font-normal leading-relaxed">
                   {story.text}
                 </p>
                 <div className="mt-auto flex flex-wrap gap-[3vw] border-t border-current pt-[2vw] opacity-90">
                   <div className="min-w-[180px] flex-1">
                     <p
-                      className="mb-2 text-4xl font-bold"
+                      className="mb-2 text-3xl font-bold"
                       style={{ color: story.color }}
                     >
                       {story.metric}
                     </p>
-                    <p className="text-[clamp(.85rem,1.3vw,1.05rem)] leading-relaxed opacity-75">
+                    <p className="text-[clamp(.8rem,1vw,.95rem)] leading-relaxed opacity-75">
                       {story.metricLabel}
                     </p>
                   </div>
@@ -188,7 +196,7 @@ function App() {
                     <p className="mb-2 text-sm font-bold uppercase tracking-wider">
                       One focused workspace
                     </p>
-                    <p className="text-[clamp(.85rem,1.3vw,1.05rem)] leading-relaxed opacity-75">
+                    <p className="text-[clamp(.8rem,1vw,.95rem)] leading-relaxed opacity-75">
                       Every step stays connected, so your ideas keep moving
                       forward.
                     </p>
@@ -206,13 +214,13 @@ function App() {
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <p>© 2026 Nexora OS. Built for creators with momentum.</p>
             <div className="flex items-center gap-6 text-sm">
-              <a href="#" className="transition hover:text-primary" aria-label="Twitter">
+              <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" className="transition hover:text-primary" aria-label="Twitter">
                 Twitter
               </a>
-              <a href="#" className="transition hover:text-primary" aria-label="Instagram">
+              <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" className="transition hover:text-primary" aria-label="Instagram">
                 Instagram
               </a>
-              <a href="#" className="transition hover:text-primary" aria-label="LinkedIn">
+              <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" className="transition hover:text-primary" aria-label="LinkedIn">
                 LinkedIn
               </a>
             </div>

@@ -57,9 +57,9 @@ export default function WebGLShader({ dark }) {
       xScale: { value: 1.4 },
       yScale: { value: 0.42 },
       distortion: { value: 0.07 },
-      color1: { value: new THREE.Color(0x040616) },
-      color2: { value: new THREE.Color(0x051729) },
-      inverse: { value: 1.0 },
+      color1: { value: new THREE.Color(0x0a0a0f) },
+      color2: { value: new THREE.Color(0x15151c) },
+      inverse: { value: 0.42 },
     };
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute(
@@ -109,9 +109,9 @@ export default function WebGLShader({ dark }) {
 
   useEffect(() => {
     if (materialRef.current) {
-      materialRef.current.uniforms.color1.value.set(dark ? 0x0a0a1a : 0xf7f7f7);
-      materialRef.current.uniforms.color2.value.set(dark ? 0x1a1a3a : 0xe0e0e0);
-      materialRef.current.uniforms.inverse.value = dark ? 1.0 : -1.0;
+      materialRef.current.uniforms.color1.value.set(dark ? 0x0a0a0f : 0xfafafa);
+      materialRef.current.uniforms.color2.value.set(dark ? 0x15151c : 0xf4f4f5);
+      materialRef.current.uniforms.inverse.value = dark ? 0.42 : -0.12;
     }
   }, [dark]);
 
@@ -126,7 +126,7 @@ export default function WebGLShader({ dark }) {
         display: "block",
         width: "100%",
         height: "100%",
-        opacity: 0.58,
+        opacity: dark ? 0.42 : 0.09,
       }}
     />
   );

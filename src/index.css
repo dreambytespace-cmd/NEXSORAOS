@@ -1,26 +1,48 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Premium tech palette: violet primary, electric blue motion and teal highlights. */
+:root {
+  --color-teal-100: #ededef;
+  --color-teal-200: #b6ace7;
+  --color-teal-300: #9582dd;
+  --color-teal-400: #6e56cf;
+  --color-teal-500: #5944b2;
+  --color-teal-950: #211b45;
+  --color-blue-400: #5b8def;
+  --color-blue-500: #3f72d0;
+  --color-sky-300: #8aeee4;
+  --color-sky-400: #00d9c0;
+  --color-purple-500: #6e56cf;
+  --color-green-400: #00d9c0;
+  --color-slate-200: #ededef;
+  --color-slate-300: #c5c5c8;
+  --color-slate-400: #8b8b8f;
+  --color-slate-500: #6b6b70;
+  --color-slate-600: #48484d;
+  --color-slate-950: #0a0a0b;
+}
+
 :root,
 [data-theme="dark"] {
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-  --bg-primary: #070b18;
-  --bg-secondary: #10182d;
-  --text-primary: #f7f9ff;
-  --text-secondary: #aebbd4;
-  --border-color: rgba(148, 163, 184, 0.2);
-  --glass-bg: rgba(15, 23, 42, 0.62);
-  --glass-highlight: rgba(255, 255, 255, 0.07);
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #15151c;
+  --text-primary: #f2f2f5;
+  --text-secondary: #8a8a94;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(21, 21, 28, 0.78);
+  --glass-highlight: rgba(237, 237, 239, 0.08);
 }
 
 [data-theme="light"] {
-  --bg-primary: #f5f8ff;
-  --bg-secondary: #e8eefb;
-  --text-primary: #0d1730;
-  --text-secondary: #53627d;
-  --border-color: rgba(84, 105, 145, 0.2);
-  --glass-bg: rgba(255, 255, 255, 0.68);
-  --glass-highlight: rgba(255, 255, 255, 0.85);
+  --bg-primary: #fafafa;
+  --bg-secondary: #f4f4f5;
+  --text-primary: #141416;
+  --text-secondary: #64646d;
+  --border-color: rgba(91, 141, 239, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-highlight: rgba(255, 255, 255, 0.8);
 }
 
 html {
@@ -37,8 +59,8 @@ body {
 
 .bg-background {
   background:
-    radial-gradient(circle at 15% 10%, rgba(45, 212, 191, 0.12), transparent 30%),
-    radial-gradient(circle at 85% 30%, rgba(129, 92, 246, 0.13), transparent 32%),
+    radial-gradient(circle at 15% 10%, rgba(110, 86, 207, 0.18), transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(91, 141, 239, 0.14), transparent 32%),
     var(--bg-primary);
 }
 
@@ -49,4 +71,33 @@ body {
 .bg-glass {
   background-color: var(--glass-bg);
   box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+.cinematic-pill {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--text-primary) 8%, transparent),
+    color-mix(in srgb, var(--text-primary) 2%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--text-primary) 14%, transparent);
+  box-shadow:
+    0 12px 28px -14px rgba(0, 0, 0, 0.42),
+    inset 0 1px 1px color-mix(in srgb, var(--text-primary) 18%, transparent),
+    inset 0 -1px 2px color-mix(in srgb, var(--bg-primary) 80%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), background 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.cinematic-pill:hover {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--text-primary) 14%, transparent),
+    color-mix(in srgb, var(--text-primary) 5%, transparent)
+  );
+  border-color: color-mix(in srgb, var(--text-primary) 26%, transparent);
+  box-shadow:
+    0 18px 36px -14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px color-mix(in srgb, var(--text-primary) 25%, transparent);
+  transform: translateY(-2px);
 }

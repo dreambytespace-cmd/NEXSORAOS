@@ -50,13 +50,13 @@ export default function LiquidButton({
     sm: "px-4 py-2 text-sm",
     md: "px-6 py-3 text-base",
     lg: "px-8 py-4 text-lg",
-    xl: "px-10 py-5 text-xl",
+    xl: "px-8 py-4 text-base",
   };
 
   return (
     <button
       className={cn(
-        "relative overflow-hidden rounded-full bg-glass backdrop-blur-md transition-all hover:shadow-lg hover:shadow-teal-500/20",
+        "cinematic-pill relative overflow-hidden rounded-full font-semibold",
         sizeClasses[size],
         className,
       )}
@@ -65,7 +65,7 @@ export default function LiquidButton({
       <span className="pointer-events-none relative z-10 flex items-center gap-2 text-primary">
         {children}
       </span>
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-teal-400/10 to-blue-400/10 opacity-0 transition-opacity duration-300 hover:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-teal-400/10 to-blue-400/10 opacity-70" />
       <GlassFilter />
     </button>
   );

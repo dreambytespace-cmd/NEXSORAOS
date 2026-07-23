@@ -5,13 +5,13 @@ import { ChevronDown } from "lucide-react";
 export default function FaqSection({ items }) {
   const [active, setActive] = useState(0);
   return (
-    <section id="faq" className="overflow-hidden px-5 py-24 md:px-8">
+    <section id="faq" className="scroll-mt-24 overflow-hidden px-5 py-20 md:px-8 md:py-24">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.75fr_1.25fr]">
         <div>
           <p className="text-sm font-semibold text-teal-300">
             Questions, answered
           </p>
-          <h2 className="mt-4 text-5xl font-bold tracking-tight text-primary">
+          <h2 className="mt-4 text-4xl font-bold tracking-tight text-primary sm:text-5xl">
             Everything you
             <br />
             want to know.
@@ -29,7 +29,7 @@ export default function FaqSection({ items }) {
             </div>
           </div>
         </div>
-        <div className="divide-y divide-border border-y border-border">
+        <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-glass px-5 shadow-xl shadow-black/5 backdrop-blur-sm sm:px-7">
           {items.map(([question, answer], i) => (
             <button
               key={question}
