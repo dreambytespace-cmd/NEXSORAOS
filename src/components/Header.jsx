@@ -6,8 +6,8 @@ import logo from "../assets/logo.png";
 const links = [
   { label: "Product", id: "features" },
   { label: "Workflow", id: "workflow" },
+  { label: "Pricing", id: "pricing" },
   { label: "FAQ", id: "faq" },
-  { label: "Discord", href: "https://discord.com/invite/YGpqUSvTVn" },
   { label: "Pitch Deck", href: "https://nexoraos.online/Nexora%20OS%20Pitch%20Deck.pdf" },
 ];
 const goTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });

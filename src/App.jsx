@@ -4,9 +4,15 @@ import { BarChart3, Bot, CalendarDays, CircleDollarSign, Clock3, MessageCircle, 
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import FaqSection from "./components/FaqSection";
+import PricingSection from "./components/PricingSection";
 import FlowArt, { FlowSection } from "./components/ui/story-scroll";
 import AnalyticsDashboard from "./components/AnalyticsDashboard";
 import DetailedWaitlistForm from "./DetailedWaitlistForm";
+import { Dock, DockItem } from "./components/Dock";
+import discordIcon from "./assets/discord.png";
+import twitterIcon from "./assets/twitter.png";
+import instagramIcon from "./assets/instagram.png";
+import linkedinIcon from "./assets/linkedin.png";
 
 const orbitItems = [
   {
@@ -206,6 +212,7 @@ function App() {
             );
           })}
         </FlowArt>
+        <PricingSection />
         <FaqSection items={faqs} />
         <section id="waitlist" className="px-5 py-24"><DetailedWaitlistForm /></section>
       </main>
@@ -213,17 +220,28 @@ function App() {
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <p>© 2026 Nexora OS. Built for creators with momentum.</p>
-            <div className="flex items-center gap-6 text-sm">
-              <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" className="transition hover:text-primary" aria-label="Twitter">
-                Twitter
-              </a>
-              <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" className="transition hover:text-primary" aria-label="Instagram">
-                Instagram
-              </a>
-              <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" className="transition hover:text-primary" aria-label="LinkedIn">
-                LinkedIn
-              </a>
-            </div>
+            <Dock>
+              <DockItem>
+                <a href="https://discord.com/invite/YGpqUSvTVn" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                  <img src={discordIcon} alt="Discord" className="h-5 w-5" />
+                </a>
+              </DockItem>
+              <DockItem>
+                <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                  <img src={twitterIcon} alt="Twitter" className="h-5 w-5" />
+                </a>
+              </DockItem>
+              <DockItem>
+                <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <img src={instagramIcon} alt="Instagram" className="h-5 w-5" />
+                </a>
+              </DockItem>
+              <DockItem>
+                <a href="https://nexoraos.online/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <img src={linkedinIcon} alt="LinkedIn" className="h-5 w-5" />
+                </a>
+              </DockItem>
+            </Dock>
           </div>
         </div>
       </footer>
