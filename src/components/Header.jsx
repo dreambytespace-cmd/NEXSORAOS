@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Sparkles, Sun, X } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const links = [
   { label: "Product", id: "features" },
@@ -48,7 +49,7 @@ export default function Header({ dark, setDark }) {
     <motion.header initial={{ y: -28, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${headerClass}`}>
       <nav aria-label="Primary navigation" className={`mx-auto flex max-w-7xl items-center justify-between px-2 py-1.5 md:px-8 ${scrolled && "max-w-6xl px-3 py-1 md:px-4"}`}>
         <button onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); setOpen(false); }} className="group flex items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-teal-300" aria-label="Nexora home">
-          <img src="/NexoraLogo.png" alt="Nexora Logo" className="h-8 w-8 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110" />
+          <img src={logo} alt="Nexora Logo" className="h-8 w-8 transition-transform duration-300 rounded-lg group-hover:rotate-6 group-hover:scale-110" />
           <span className="font-semibold tracking-tight text-primary">Nexora <em className="font-normal text-teal-300 not-italic">OS</em></span>
         </button>
         <div className="hidden items-center gap-1 rounded-full bg-black/5 p-1 dark:bg-white/[.07] md:flex">
