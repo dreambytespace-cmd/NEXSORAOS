@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Sparkles, Sun, X } from "lucide-react";
-import logo from "../assets/logo.jpeg";
 
 const links = [
   { label: "Product", id: "features" },
@@ -10,7 +9,7 @@ const links = [
   { label: "FAQ", id: "faq" },
   {
     label: "Pitch Deck",
-    href: "https://nexoraos.online/Nexsora%20OS%20Pitch%20Deck.pdf",
+    href: "https://nexoraos.online/Nexora%20OS%20Pitch%20Deck.pdf",
   },
 ];
 const goTo = (id) =>
@@ -77,15 +76,15 @@ export default function Header({ dark, setDark }) {
             setOpen(false);
           }}
           className="group flex items-center gap-2 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
-          aria-label="Nexsora home"
+          aria-label="Nexora home"
         >
           <img
-            src={logo}
-            alt="Nexsora Logo"
+            src="/logo.png"
+            alt="Nexora Logo"
             className="h-8 w-8 transition-transform duration-300 rounded-lg group-hover:rotate-6 group-hover:scale-110"
           />
           <span className="font-semibold tracking-tight text-primary">
-            Nexsora <em className="font-normal text-teal-300 not-italic">OS</em>
+            Nexora <em className="font-normal text-teal-300 not-italic">OS</em>
           </span>
         </button>
         <div className="hidden items-center gap-1 rounded-full bg-black/5 p-1 dark:bg-white/[.07] md:flex">

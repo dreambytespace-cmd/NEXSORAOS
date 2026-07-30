@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { BarChart3, Bot, CalendarDays, CircleDollarSign, Clock3, MessageCircle, PenLine } from "lucide-react";
 import Header from "./components/Header";
@@ -51,7 +51,7 @@ const orbitItems = [
     title: "Brand Deals CRM",
     date: "GROW",
     content:
-      "Track every sponsorship deal from outreach to payment in a Kanban pipeline. Generate invoices and send them directly — no more spreadsheets.",
+      "Track every sponsorship deal from outreach to payment in a Kanban pipeline. Generate invoices and send them directly â€” no more spreadsheets.",
     category: "Revenue",
     status: "pending",
   },
@@ -156,7 +156,7 @@ function App() {
               one place.
             </p>
             <div className="mt-12 text-left">
-              <AnalyticsDashboard />
+              <AnalyticsDashboard dark={dark} />
             </div>
           </div>
         </section>
@@ -167,26 +167,41 @@ function App() {
         >
           {stories.map((story) => {
             const Icon = story.icon;
+            const workflowCardClass = dark
+              ? "min-w-0 overflow-hidden rounded-[2rem] bg-background !p-0 text-primary"
+              : "min-w-0 overflow-hidden rounded-[2rem] bg-white !p-0 text-primary";
+            const workflowInnerClass = dark
+              ? "!min-h-[20rem] !rounded-[2rem] !px-6 !py-6"
+              : "!min-h-[20rem] !rounded-[2rem] !border-violet-100 !bg-gradient-to-br !from-white !via-white !to-violet-50/60 !px-6 !py-6 !shadow-[0_18px_50px_-28px_rgba(110,86,207,0.32)]";
+            const sectionRule = dark
+              ? "my-[2vw] border-none border-t border-current opacity-40"
+              : "my-[2vw] border-none border-t border-violet-200/80";
+            const bottomRule = dark
+              ? "mt-auto flex flex-wrap gap-[3vw] border-t border-current pt-[2vw] opacity-90"
+              : "mt-auto flex flex-wrap gap-[3vw] border-t border-violet-100 pt-[2vw]";
             return (
               <FlowSection
                 key={story.name}
                 aria-label={story.name}
-                className="min-w-0 bg-background !p-0 text-primary"
-                cardClassName="!min-h-[20rem] !rounded-[1.5rem] !px-6 !py-6"
+                className={workflowCardClass}
+                cardClassName={workflowInnerClass}
               >
-                <p className="text-xs font-bold uppercase tracking-[0.2em]">
-                  {story.number} — {story.name}
+                <p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em]">
+                  <span className="rounded-full border border-current/15 px-2.5 py-1 text-[0.68rem] tracking-[0.22em]">
+                    {story.number}
+                  </span>
+                  <span className="opacity-70">{story.name}</span>
                 </p>
-                <hr className="my-[2vw] border-none border-t border-current opacity-40" />
+                <hr className={sectionRule} />
                 <div className="flex items-start justify-between gap-8">
                   <h2 className="text-[clamp(2rem,3.5vw,3.75rem)] font-bold leading-[0.95] uppercase tracking-tight" dangerouslySetInnerHTML={{ __html: story.title.replace('.', '.<br/>') }} />
                   <Icon className="mt-2 hidden h-16 w-16 shrink-0 sm:block" />
                 </div>
-                <hr className="my-[2vw] border-none border-t border-current opacity-40" />
+                <hr className={sectionRule} />
                 <p className="max-w-[58ch] text-[clamp(0.95rem,1.6vw,1.35rem)] font-normal leading-relaxed">
                   {story.text}
                 </p>
-                <div className="mt-auto flex flex-wrap gap-[3vw] border-t border-current pt-[2vw] opacity-90">
+                <div className={bottomRule}>
                   <div className="min-w-[180px] flex-1">
                     <p
                       className="mb-2 text-3xl font-bold"
@@ -219,7 +234,17 @@ function App() {
       <footer className="border-t border-border px-5 py-8 text-sm text-secondary">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-            <p>© 2026 Nexora OS. Built for creators with momentum.</p>
+            <div className="text-center sm:text-left">
+              <p>&copy; 2026 Nexora OS. Built for creators with momentum.</p>
+              <div className="mt-2 flex flex-wrap items-center justify-center gap-4 text-xs text-secondary sm:justify-start">
+                <a className="transition hover:text-primary" href="/privacy-policy.html">
+                  Privacy Policy
+                </a>
+                <a className="transition hover:text-primary" href="/terms-and-conditions.html">
+                  Terms &amp; Conditions
+                </a>
+              </div>
+            </div>
             <Dock>
               <DockItem>
                 <a href="https://discord.com/invite/YGpqUSvTVn" target="_blank" rel="noopener noreferrer" aria-label="Discord">
@@ -249,3 +274,4 @@ function App() {
   );
 }
 export default App;
+

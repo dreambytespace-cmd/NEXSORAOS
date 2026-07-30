@@ -54,9 +54,9 @@ export default function WebGLShader({ dark }) {
     const uniforms = {
       resolution: { value: new THREE.Vector2() },
       time: { value: 0 },
-      xScale: { value: 1.4 },
-      yScale: { value: 0.42 },
-      distortion: { value: 0.07 },
+      xScale: { value: dark ? 1.4 : 1.12 },
+      yScale: { value: dark ? 0.42 : 0.32 },
+      distortion: { value: dark ? 0.07 : 0.04 },
       color1: { value: new THREE.Color(0x0a0a0f) },
       color2: { value: new THREE.Color(0x15151c) },
       inverse: { value: 0.42 },
@@ -109,9 +109,12 @@ export default function WebGLShader({ dark }) {
 
   useEffect(() => {
     if (materialRef.current) {
-      materialRef.current.uniforms.color1.value.set(dark ? 0x0a0a0f : 0xfafafa);
-      materialRef.current.uniforms.color2.value.set(dark ? 0x15151c : 0xf4f4f5);
-      materialRef.current.uniforms.inverse.value = dark ? 0.42 : -0.12;
+      materialRef.current.uniforms.color1.value.set(dark ? 0x0a0a0f : 0xf4f1ff);
+      materialRef.current.uniforms.color2.value.set(dark ? 0x15151c : 0xe7e0fb);
+      materialRef.current.uniforms.inverse.value = dark ? 0.42 : 0.18;
+      materialRef.current.uniforms.xScale.value = dark ? 1.4 : 1.12;
+      materialRef.current.uniforms.yScale.value = dark ? 0.42 : 0.32;
+      materialRef.current.uniforms.distortion.value = dark ? 0.07 : 0.04;
     }
   }, [dark]);
 
@@ -119,15 +122,15 @@ export default function WebGLShader({ dark }) {
     <canvas
       ref={canvasRef}
       className="pointer-events-none"
-      style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 0,
-        display: "block",
-        width: "100%",
-        height: "100%",
-        opacity: dark ? 0.42 : 0.09,
-      }}
-    />
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          display: "block",
+          width: "100%",
+          height: "100%",
+          opacity: dark ? 0.42 : 0.18,
+        }}
+      />
   );
 }

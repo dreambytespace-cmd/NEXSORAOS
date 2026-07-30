@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import WebGLShader from "./WebGLShader";
 import LiquidButton from "./LiquidButton";
@@ -33,7 +33,7 @@ export default function HeroSection({ dark }) {
           dark ? "bg-gradient-to-b from-white/20 to-transparent [-webkit-text-stroke:1px_rgba(237,237,239,0.20)]" : "bg-gradient-to-b from-[#141416]/10 to-transparent [-webkit-text-stroke:1px_rgba(20,20,22,0.14)]"
         }`}
       >
-        NEXSORA
+        NEXORA
       </p>
       <div className="relative z-10 w-full max-w-5xl -translate-y-7 sm:-translate-y-10">
         <motion.div
@@ -68,7 +68,7 @@ export default function HeroSection({ dark }) {
           className="mx-auto mb-9 max-w-2xl text-base leading-7 text-secondary sm:text-lg"
         >
           Save time, grow faster, and earn more. Stop juggling 10 different
-          tools — Nexsora OS is your all-in-one creator command center.
+          tools - Nexora OS is your all-in-one creator command center.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -85,7 +85,7 @@ export default function HeroSection({ dark }) {
             className="border border-border text-primary"
             size="xl"
           >
-            Join Waitlist — Free →
+            Join Waitlist - Free &rarr;
           </LiquidButton>
           <button
             onClick={() =>
@@ -129,3 +129,4 @@ export default function HeroSection({ dark }) {
     </section>
   );
 }
+

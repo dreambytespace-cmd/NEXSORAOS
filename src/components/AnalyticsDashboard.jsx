@@ -101,20 +101,20 @@ const tabs = [
   },
 ];
 
-function DashboardCard({ children, className = "" }) {
+function DashboardCard({ children, className = "", dark = true }) {
   return (
     <div
-      className={`min-w-0 rounded-2xl border border-white/10 bg-[#142128] shadow-xl shadow-black/10 ${className}`}
+      className={`min-w-0 rounded-2xl border shadow-xl transition-colors duration-300 ${dark ? "border-white/10 bg-[#142128] shadow-black/10" : "border-violet-100/80 bg-gradient-to-br from-white via-white to-violet-50/60 shadow-[0_18px_50px_-28px_rgba(110,86,207,0.35)] ring-1 ring-violet-100/40"} ${className}`}
     >
       {children}
     </div>
   );
 }
-function MetricCards() {
+function MetricCards({ dark = true }) {
   return (
     <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
       {metrics.map(({ label, value, change, icon: Icon, tone }) => (
-        <DashboardCard key={label} className="p-3 sm:p-4">
+        <DashboardCard key={label} className="p-3 sm:p-4" dark={dark}>
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <p className="text-xs text-slate-400">{label}</p>
@@ -140,12 +140,31 @@ function MetricCards() {
   );
 }
 
-function AnalyticsContent() {
+function AnalyticsContent({ dark = true }) {
+  const chart = dark
+    ? {
+        grid: "#ffffff12",
+        axis: "#94a3b8",
+        tooltipBg: "#111c23",
+        tooltipBorder: "#ffffff1a",
+        reach: "#2dd4bf",
+        engagement: "#a78bfa",
+        platform: "#38bdf8",
+      }
+    : {
+        grid: "rgba(110, 86, 207, 0.14)",
+        axis: "#766b93",
+        tooltipBg: "#ffffff",
+        tooltipBorder: "#ddd6fe",
+        reach: "#6e56cf",
+        engagement: "#5b8def",
+        platform: "#6e56cf",
+      };
   return (
-    <>
-      <MetricCards />
-      <div className="grid gap-5 xl:grid-cols-[1.6fr_1fr]">
-        <DashboardCard className="p-5">
+    <div className="space-y-6">
+      <MetricCards dark={dark} />
+      <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+        <DashboardCard className="p-5 sm:p-6" dark={dark}>
           <div className="mb-5 flex items-start justify-between">
             <div>
               <h4 className="font-semibold text-white">Audience growth</h4>
@@ -160,38 +179,38 @@ function AnalyticsContent() {
               <LineChart data={audienceData}>
                 <CartesianGrid
                   vertical={false}
-                  stroke="#ffffff12"
+                  stroke={chart.grid}
                   strokeDasharray="3 3"
                 />
                 <XAxis
                   dataKey="month"
-                  tick={{ fill: "#94a3b8", fontSize: 11 }}
+                  tick={{ fill: chart.axis, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: "#94a3b8", fontSize: 11 }}
+                  tick={{ fill: chart.axis, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "#111c23",
-                    border: "1px solid #ffffff1a",
+                    background: chart.tooltipBg,
+                    border: `1px solid ${chart.tooltipBorder}`,
                     borderRadius: 12,
                   }}
                 />
                 <Line
                   type="monotone"
                   dataKey="reach"
-                  stroke="#2dd4bf"
+                  stroke={chart.reach}
                   strokeWidth={3}
                   dot={false}
                 />
                 <Line
                   type="monotone"
                   dataKey="engagement"
-                  stroke="#a78bfa"
+                  stroke={chart.engagement}
                   strokeWidth={2}
                   dot={false}
                 />
@@ -209,7 +228,7 @@ function AnalyticsContent() {
             </span>
           </div>
         </DashboardCard>
-        <DashboardCard className="p-5">
+        <DashboardCard className="p-5 sm:p-6" dark={dark}>
           <h4 className="font-semibold text-white">Top channels</h4>
           <p className="mt-1 text-xs text-slate-400">Performance by platform</p>
           <div className="mt-5 h-52">
@@ -230,7 +249,7 @@ function AnalyticsContent() {
                 />
                 <Bar
                   dataKey="value"
-                  fill="#38bdf8"
+                  fill={chart.platform}
                   radius={[0, 6, 6, 0]}
                   barSize={12}
                 />
@@ -239,16 +258,16 @@ function AnalyticsContent() {
           </div>
         </DashboardCard>
       </div>
-    </>
+    </div>
   );
 }
 
-function OverviewContent() {
+function OverviewContent({ dark = true }) {
   return (
-    <div className="space-y-5">
-      <MetricCards />
-      <div className="grid gap-5 lg:grid-cols-2">
-        <DashboardCard className="p-5">
+    <div className="space-y-6">
+      <MetricCards dark={dark} />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <DashboardCard className="p-5 sm:p-6" dark={dark}>
           <div className="flex items-center justify-between">
             <div>
               <h4 className="font-semibold text-white">Today&apos;s focus</h4>
@@ -279,7 +298,7 @@ function OverviewContent() {
             ))}
           </div>
         </DashboardCard>
-        <DashboardCard className="p-5">
+        <DashboardCard className="p-5 sm:p-6" dark={dark}>
           <h4 className="font-semibold text-white">AI recommendation</h4>
           <p className="mt-1 text-xs text-slate-400">
             Based on your best-performing content.
@@ -303,7 +322,7 @@ function OverviewContent() {
   );
 }
 
-function CalendarContent() {
+function CalendarContent({ dark = true }) {
   const posts = [
     {
       day: "MON 21",
@@ -326,7 +345,7 @@ function CalendarContent() {
   ];
   return (
     <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
-      <DashboardCard className="p-4 sm:p-5">
+      <DashboardCard className="p-4 sm:p-5" dark={dark}>
         <div className="flex items-center justify-between gap-3">
           <div>
             <h4 className="font-semibold text-white">July 2026</h4>
@@ -355,7 +374,7 @@ function CalendarContent() {
           ))}
         </div>
       </DashboardCard>
-      <DashboardCard className="p-4 sm:p-5">
+      <DashboardCard className="p-4 sm:p-5" dark={dark}>
         <h4 className="font-semibold text-white">Upcoming posts</h4>
         <div className="mt-4 space-y-3">
           {posts.map((post) => (
@@ -376,10 +395,10 @@ function CalendarContent() {
   );
 }
 
-function StudioContent() {
+function StudioContent({ dark = true }) {
   return (
     <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
-      <DashboardCard className="p-5">
+      <DashboardCard className="p-5" dark={dark}>
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-teal-300">
           Repurpose with AI
         </p>
@@ -401,7 +420,7 @@ function StudioContent() {
           </button>
         </div>
       </DashboardCard>
-      <DashboardCard className="p-5">
+      <DashboardCard className="p-5" dark={dark}>
         <h4 className="font-semibold text-white">Recent generations</h4>
         <div className="mt-4 space-y-3">
           {[
@@ -430,22 +449,33 @@ function StudioContent() {
   );
 }
 
-export default function AnalyticsDashboard() {
+export default function AnalyticsDashboard({ dark = true }) {
   const [activeTab, setActiveTab] = useState("Analytics");
   const active = tabs.find((tab) => tab.label === activeTab) ?? tabs[1];
   const content = {
-    Overview: <OverviewContent />,
-    Analytics: <AnalyticsContent />,
-    "Content calendar": <CalendarContent />,
-    "Repurpose studio": <StudioContent />,
+    Overview: <OverviewContent dark={dark} />,
+    Analytics: <AnalyticsContent dark={dark} />,
+    "Content calendar": <CalendarContent dark={dark} />,
+    "Repurpose studio": <StudioContent dark={dark} />,
   }[activeTab];
+  const isLight = !dark;
+  const rootClass = isLight
+    ? "border border-violet-100 bg-gradient-to-br from-white via-white to-violet-50/50 text-primary shadow-2xl shadow-violet-100/60 analytics-light"
+    : "border border-border bg-[#0b1116] text-primary shadow-2xl shadow-teal-950/20 analytics-dark";
+  const asideClass = isLight
+    ? "hidden border-r border-violet-100 bg-gradient-to-b from-violet-50/80 to-white p-4 lg:flex lg:flex-col"
+    : "hidden border-r border-white/10 bg-[#0d171c] p-4 lg:flex lg:flex-col";
+  const panelClass = isLight ? "min-w-0 bg-gradient-to-br from-white via-white to-violet-50/30" : "min-w-0 bg-[#10191f]";
+  const headClass = isLight
+    ? "flex items-center justify-between gap-3 border-b border-violet-100 px-4 py-4 sm:px-7"
+    : "flex items-center justify-between gap-3 border-b border-white/10 px-4 py-4 sm:px-7";
   const nav = (
     <nav className="space-y-1 text-sm">
       {tabs.map(({ icon: Icon, label }) => (
         <button
           key={label}
           onClick={() => setActiveTab(label)}
-          className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition ${activeTab === label ? "bg-teal-400/10 text-teal-300" : "text-slate-400 hover:bg-white/5 hover:text-white"}`}
+          className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition ${activeTab === label ? "bg-violet-400/10 text-violet-300" : isLight ? "text-slate-600 hover:bg-violet-100/60 hover:text-violet-700" : "text-slate-400 hover:bg-white/5 hover:text-white"}`}
         >
           <Icon size={16} />
           {label}
@@ -456,13 +486,13 @@ export default function AnalyticsDashboard() {
   const mobileNav = (
     <nav
       aria-label="Dashboard sections"
-      className="flex gap-2 overflow-x-auto border-b border-white/10 px-4 py-3 [scrollbar-width:none] lg:hidden"
+      className={`flex gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] lg:hidden ${isLight ? "border-b border-violet-100" : "border-b border-white/10"}`}
     >
       {tabs.map(({ icon: Icon, label }) => (
         <button
           key={label}
           onClick={() => setActiveTab(label)}
-          className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition ${activeTab === label ? "bg-teal-400/15 text-teal-300" : "bg-white/5 text-slate-400"}`}
+          className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition ${activeTab === label ? "bg-violet-400/15 text-violet-300" : isLight ? "bg-violet-50 text-slate-600" : "bg-white/5 text-slate-400"}`}
         >
           <Icon size={14} />
           {label}
@@ -471,33 +501,33 @@ export default function AnalyticsDashboard() {
     </nav>
   );
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-border bg-[#0b1116] text-primary shadow-2xl shadow-teal-950/20 sm:rounded-3xl">
+    <div className={`w-full overflow-hidden rounded-2xl sm:rounded-3xl ${rootClass}`}>
       <div className="grid min-h-[650px] lg:grid-cols-[205px_1fr]">
-        <aside className="hidden border-r border-white/10 bg-[#0d171c] p-4 lg:flex lg:flex-col">
-          <div className="mb-8 flex items-center gap-2 px-2 text-lg font-bold tracking-tight text-white">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-teal-400 text-slate-950">
+        <aside className={asideClass}>
+          <div className={`mb-8 flex items-center gap-2 px-2 text-lg font-bold tracking-tight ${isLight ? "text-slate-900" : "text-white"}`}>
+            <span className={`grid h-8 w-8 place-items-center rounded-lg ${isLight ? "bg-violet-500 text-white" : "bg-violet-400 text-slate-950"}`}>
               <Sparkles size={17} />
             </span>
             NEXORA
           </div>
           {nav}
-          <div className="mt-auto rounded-xl border border-teal-400/15 bg-teal-400/5 p-3 text-xs leading-relaxed text-slate-400">
-            <p className="font-semibold text-teal-300">Weekly insight</p>Your
+          <div className={`mt-auto rounded-xl border p-3 text-xs leading-relaxed ${isLight ? "border-violet-200 bg-violet-50 text-slate-600" : "border-violet-400/15 bg-violet-400/5 text-slate-400"}`}>
+            <p className={`font-semibold ${isLight ? "text-violet-700" : "text-violet-300"}`}>Weekly insight</p>Your
             short-form videos are driving 34% more saves this week.
           </div>
         </aside>
-        <div className="min-w-0 bg-[#10191f]">
+        <div className={panelClass}>
           {mobileNav}
-          <header className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-4 sm:px-7">
+          <header className={headClass}>
             <div className="min-w-0">
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-teal-300">
+              <p className={`text-xs font-medium uppercase tracking-[0.18em] ${isLight ? "text-violet-600" : "text-violet-300"}`}>
                 {active.kicker}
               </p>
-              <h3 className="mt-1 truncate text-base font-bold text-white sm:text-lg">
+              <h3 className={`mt-1 truncate text-base font-bold sm:text-lg ${isLight ? "text-slate-900" : "text-white"}`}>
                 {active.title}
               </h3>
             </div>
-            <button className="flex shrink-0 items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-2 text-[11px] font-medium text-slate-300 sm:px-3 sm:text-xs">
+            <button className={`flex shrink-0 items-center gap-2 rounded-lg border px-2.5 py-2 text-[11px] font-medium sm:px-3 sm:text-xs ${isLight ? "border-violet-200 bg-violet-50 text-slate-700" : "border-white/10 bg-white/5 text-slate-300"}`}>
               Last 30 days <ChevronDown size={14} />
             </button>
           </header>
