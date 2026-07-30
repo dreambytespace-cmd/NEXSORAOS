@@ -50,3 +50,4 @@ To get a local copy up and running, follow these simple steps.
     ```sh
     npm run dev
     ```# Nexora-OS
+# NEXSORAOS
