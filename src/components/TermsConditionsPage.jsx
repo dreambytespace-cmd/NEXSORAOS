@@ -2,7 +2,7 @@
 import React from 'react';
 import LegalNavbar from './LegalNavbar';
 
-const TermsPage = () => {
+const TermsConditionsPage = () => {
   return (
     <div className="min-h-screen bg-background text-primary font-sans selection:bg-teal-300/30">
       {/* Grid Background */}
@@ -266,4 +266,4 @@ const sections = [
   },
 ];
 
-export default TermsPage;
+export default TermsConditionsPage;
