@@ -227,7 +227,7 @@ function App() {
             );
           })}
         </FlowArt>
-        <PricingSection />
+        <PricingSection dark={dark} />
         <FaqSection items={faqs} />
         <section id="waitlist" className="px-5 py-24"><DetailedWaitlistForm /></section>
       </main>

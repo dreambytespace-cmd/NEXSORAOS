@@ -42,8 +42,24 @@ const plans = [
   },
 ];
 
-export default function PricingSection() {
+export default function PricingSection({ dark = true }) {
   const [isYearly, setIsYearly] = useState(false);
+  const isLight = !dark;
+  const toggleLabelClass = isYearly
+    ? "text-primary"
+    : isLight
+      ? "text-slate-600"
+      : "text-secondary";
+  const savingsBadgeClass = isYearly
+    ? isLight
+      ? "border-violet-200 bg-violet-100 text-violet-700"
+      : "border-violet-400/20 bg-violet-400/10 text-violet-200"
+    : isLight
+      ? "border-violet-100 bg-violet-50 text-violet-600"
+      : "border-white/10 bg-white/5 text-secondary";
+  const toggleTrackClass = isLight
+    ? "bg-violet-100/80 after:bg-white peer-checked:bg-violet-500"
+    : "bg-white/10 after:bg-white peer-checked:bg-violet-500";
 
   return (
     <section id="pricing" className="scroll-mt-16 bg-background text-primary py-20 md:py-24">
@@ -83,15 +99,22 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 flex items-center justify-center gap-4"
+          className="mt-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
         >
-          <span className={`font-medium ${!isYearly ? "text-primary" : "text-secondary"}`}>Monthly</span>
+          <span className={`font-medium transition-colors ${toggleLabelClass}`}>
+            Monthly
+          </span>
           <label htmlFor="billing-cycle" className="relative inline-flex cursor-pointer items-center">
             <input id="billing-cycle" type="checkbox" className="peer sr-only" checked={isYearly} onChange={() => setIsYearly(!isYearly)} />
-            <div className="h-7 w-12 rounded-full bg-white/10 after:absolute after:left-1 after:top-1 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:bg-teal-500 peer-checked:after:translate-x-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-300" />
+            <div className={`h-7 w-12 rounded-full after:absolute after:left-1 after:top-1 after:h-5 after:w-5 after:rounded-full after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-violet-300 ${toggleTrackClass}`} />
           </label>
-          <span className={`font-medium ${isYearly ? "text-primary" : "text-secondary"}`}>
-            Yearly <span className="text-teal-400">(Save 17%)</span>
+          <span className={`inline-flex items-center gap-2 font-medium transition-colors ${isYearly ? "text-primary" : isLight ? "text-slate-600" : "text-secondary"}`}>
+            Yearly
+            <span
+              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-wide ${savingsBadgeClass}`}
+            >
+              Save 17%
+            </span>
           </span>
         </motion.div>
 

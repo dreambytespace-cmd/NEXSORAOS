@@ -15,7 +15,9 @@ import {
   BarChart3,
   CalendarDays,
   CheckCircle2,
+  Check,
   ChevronDown,
+  CloudUpload,
   FileText,
   Heart,
   ImagePlus,
@@ -24,6 +26,7 @@ import {
   Plus,
   Send,
   Sparkles,
+  Search,
   TrendingUp,
   Users,
   WandSparkles,
@@ -98,6 +101,12 @@ const tabs = [
     icon: PlaySquare,
     kicker: "Create",
     title: "Turn one idea into many",
+  },
+  {
+    label: "Create Post",
+    icon: Sparkles,
+    kicker: "Composer",
+    title: "Create and publish",
   },
 ];
 
@@ -449,6 +458,300 @@ function StudioContent({ dark = true }) {
   );
 }
 
+function CreatePostContent({ dark = true }) {
+  const isLight = !dark;
+  const [activeMode, setActiveMode] = useState("image");
+  const [selectAll, setSelectAll] = useState(false);
+  const [instagramCaption, setInstagramCaption] = useState("");
+  const [linkedinCaption, setLinkedinCaption] = useState("");
+
+  const modeCards = [
+    {
+      id: "image",
+      title: "Image Post",
+      subtitle: "Instagram + LinkedIn",
+      badge: "◌",
+      active: true,
+    },
+    {
+      id: "reel",
+      title: "Reel + Short",
+      subtitle: "All Platforms",
+      badge: "▶",
+    },
+    {
+      id: "video",
+      title: "Video Posting",
+      subtitle: "All Platforms",
+      badge: "▭",
+    },
+    {
+      id: "story",
+      title: "Story Posting",
+      subtitle: "Instagram + TikTok",
+      badge: "+",
+    },
+  ];
+
+  const channelCards = [
+    { id: "youtube", name: "YouTube", badge: "YT", tone: "text-red-400", ring: "border-white/10" },
+    { id: "tiktok", name: "TikTok", badge: "TT", tone: "text-pink-400", ring: "border-white/10" },
+    { id: "instagram", name: "Instagram", badge: "IG", tone: "text-pink-400", ring: "border-pink-500/60" },
+    { id: "linkedin", name: "LinkedIn", badge: "in", tone: "text-blue-400", ring: "border-blue-500/60" },
+    { id: "x", name: "X/Twitter", badge: "X", tone: "text-sky-400", ring: "border-white/10" },
+  ];
+
+  const selectedChannels = selectAll
+    ? new Set(channelCards.map((channel) => channel.id))
+    : new Set(["instagram", "linkedin"]);
+
+  const autoFill = () => {
+    setInstagramCaption("Turning one idea into a polished image post can keep your momentum going without starting from scratch every time.");
+    setLinkedinCaption("A strong LinkedIn caption should open with a sharp hook, make the takeaway obvious, and invite the right conversation.");
+  };
+
+  const surfaceClass = isLight
+    ? "border-violet-100 bg-white shadow-[0_20px_60px_-36px_rgba(110,86,207,0.28)]"
+    : "border-white/10 bg-[#0f141a]";
+  const panelClass = isLight
+    ? "border-violet-100 bg-white/90"
+    : "border-white/10 bg-[#12151c]/80";
+  const headingClass = isLight ? "text-slate-900" : "text-white";
+  const mutedClass = isLight ? "text-slate-600" : "text-slate-500";
+  const inputClass = isLight
+    ? "border-violet-100 bg-white text-slate-900 placeholder:text-slate-400"
+    : "border-white/10 bg-[#20232c] text-slate-100 placeholder:text-slate-500";
+  const iconTileClass = isLight
+    ? "border-violet-100 bg-violet-50 text-slate-600"
+    : "border-white/10 bg-white/[0.03] text-slate-400";
+
+  return (
+    <div className="space-y-5">
+      <div className={`rounded-2xl border px-4 py-4 shadow-xl ${surfaceClass}`}>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className={`flex min-w-0 flex-1 items-center gap-3 rounded-[1.25rem] border px-4 py-3 backdrop-blur-xl ${isLight ? "border-violet-100 bg-violet-50/70" : "border-white/10 bg-white/[0.04]"}`}>
+            <Search size={18} className="shrink-0 text-slate-500" />
+            <input
+              type="text"
+              aria-label="Search content"
+              placeholder="Search content, scheduled posts, or analytics..."
+              className={`w-full bg-transparent text-sm outline-none ${inputClass}`}
+            />
+          </div>
+          <div className="flex items-center justify-between gap-3 lg:justify-end">
+            <button className={`grid h-10 w-10 place-items-center rounded-full border transition ${isLight ? "border-violet-100 bg-violet-50 text-slate-500 hover:border-violet-200 hover:text-slate-700" : "border-white/10 bg-white/[0.03] text-slate-400 hover:text-white"}`}>
+              <Check size={18} />
+            </button>
+            <button className={`grid h-10 w-10 place-items-center rounded-full border transition ${isLight ? "border-violet-100 bg-violet-50 text-slate-500 hover:border-violet-200 hover:text-slate-700" : "border-white/10 bg-white/[0.03] text-slate-400 hover:text-white"}`}>
+              <Sparkles size={18} />
+            </button>
+            <button className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#c2bcff_0%,#8b7ef0_100%)] px-5 py-3 text-sm font-extrabold tracking-tight text-[#0c0717] shadow-[0_18px_45px_-20px_rgba(139,126,240,0.8)]">
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {modeCards.map((mode) => {
+          const selected = activeMode === mode.id;
+          return (
+            <button
+              key={mode.id}
+              type="button"
+              onClick={() => setActiveMode(mode.id)}
+              className={`min-h-[145px] rounded-[1.5rem] border p-5 text-left transition duration-300 ${selected ? (isLight ? "border-violet-300 bg-violet-50 shadow-[0_20px_60px_-35px_rgba(110,86,207,0.45)]" : "border-violet-300/70 bg-[linear-gradient(135deg,rgba(49,42,78,0.95),rgba(26,21,34,0.96))]") : (isLight ? "border-violet-100 bg-white hover:border-violet-200 hover:bg-violet-50/70" : "border-white/[0.08] bg-white/[0.025] hover:border-white/14 hover:bg-white/[0.035]")}`}
+            >
+              <div className={`grid h-12 w-12 place-items-center rounded-2xl border ${selected ? (isLight ? "border-violet-200 bg-violet-100 text-violet-700" : "border-violet-300/30 bg-violet-400/15 text-violet-200") : iconTileClass}`}>
+                <span className="text-sm font-black">{mode.badge}</span>
+              </div>
+              <h3 className={`mt-5 text-[1.2rem] font-black tracking-tight sm:text-[1.35rem] ${headingClass}`}>
+                {mode.title}
+              </h3>
+              <p className={`mt-2 text-sm ${mutedClass}`}>{mode.subtitle}</p>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="grid gap-5 xl:grid-cols-[1.45fr_1fr]">
+        <div className="space-y-5">
+          <DashboardCard className="min-h-[400px] p-6 sm:p-8" dark={dark}>
+            <div className={`flex h-full min-h-[320px] flex-col items-center justify-center rounded-[1.4rem] border border-dashed px-6 py-10 text-center ${isLight ? "border-violet-200 bg-white" : "border-white/12 bg-[#12151c]/80"}`}>
+              <div className={`grid h-20 w-20 place-items-center rounded-3xl border ${isLight ? "border-violet-100 bg-violet-50 text-violet-500" : "border-white/10 bg-white/[0.04] text-slate-300"}`}>
+                <CloudUpload size={32} />
+              </div>
+              <h2 className={`mt-8 text-[clamp(2rem,3vw,3.2rem)] font-black tracking-tight ${headingClass}`}>
+                Drop your media here
+              </h2>
+              <p className={`mt-3 max-w-xl text-sm sm:text-base ${mutedClass}`}>
+                Recommended: 1080&times;1350 for optimal social reach.
+              </p>
+              <div className={`mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold ${isLight ? "border-violet-200 bg-violet-100 text-violet-700" : "border-cyan-400/15 bg-cyan-400/10 text-cyan-300"}`}>
+                <Check size={16} />
+                Auto-converting to JPEG/PNG/WebP
+              </div>
+              <button className={`mt-6 rounded-2xl border px-8 py-4 text-base font-bold transition ${isLight ? "border-violet-200 bg-violet-600 text-white hover:bg-violet-700" : "border-white/10 bg-white/[0.03] text-white hover:border-violet-300/40 hover:bg-violet-400/10"}`}>
+                Select File
+              </button>
+            </div>
+          </DashboardCard>
+
+          <DashboardCard className="p-5 sm:p-6" dark={dark}>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <h3 className={`text-[1.35rem] font-black tracking-tight sm:text-[1.55rem] ${headingClass}`}>
+                Post To
+              </h3>
+              <button
+                type="button"
+                onClick={() => setSelectAll((value) => !value)}
+                className={`flex items-center gap-3 self-start text-sm font-medium sm:self-auto ${isLight ? "text-slate-500" : "text-slate-400"}`}
+              >
+                <span>Select All</span>
+                <span className={`relative inline-flex h-7 w-11 items-center rounded-full border transition ${selectAll ? "border-violet-300/50 bg-violet-400/60" : isLight ? "border-violet-200 bg-violet-100" : "border-white/10 bg-white/10"}`}>
+                  <span className={`absolute left-1 h-5 w-5 rounded-full bg-white shadow transition ${selectAll ? "translate-x-4" : "translate-x-0"}`} />
+                </span>
+              </button>
+            </div>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+              {channelCards.map((channel) => {
+                const selected = selectedChannels.has(channel.id);
+                return (
+                  <button
+                    key={channel.id}
+                    type="button"
+                    className={`min-h-[112px] overflow-hidden rounded-[1.15rem] border p-3 text-center transition ${selected ? (isLight ? `bg-violet-50 ${channel.ring}` : `bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] ${channel.ring}`) : (isLight ? "border-violet-100 bg-white opacity-95 hover:border-violet-200 hover:bg-violet-50/70" : "border-white/[0.08] bg-white/[0.02] opacity-90 hover:border-white/14 hover:bg-white/[0.04]")}`}
+                  >
+                    <div className={`mx-auto grid h-9 w-9 place-items-center rounded-2xl border ${selected ? `${channel.tone} border-current/25 ${channel.badgeBg}` : isLight ? "border-violet-100 bg-violet-50 text-slate-500" : "border-white/[0.08] bg-black/20 text-slate-500"}`}>
+                      <span className="text-[0.64rem] font-black leading-none tracking-tight text-current whitespace-nowrap">
+                        {channel.badge}
+                      </span>
+                    </div>
+                    <p className={`mt-3 truncate text-[0.82rem] font-bold leading-tight ${isLight ? "text-slate-800" : "text-slate-200"}`}>{channel.name}</p>
+                    <p className="mt-1 truncate text-[0.7rem] leading-tight text-slate-500">
+                      {channel.id === "x" ? "Soon" : "Ready"}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </DashboardCard>
+        </div>
+
+        <div className="space-y-5">
+          <div className="flex items-center justify-between gap-3">
+            <h3 className={`text-[1.45rem] font-black tracking-tight sm:text-[1.75rem] ${headingClass}`}>
+              Captions &amp; Hashtags
+            </h3>
+            <button
+              type="button"
+              onClick={autoFill}
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition ${isLight ? "border-violet-200 bg-violet-50 text-violet-700 hover:border-violet-300 hover:bg-violet-100" : "border-white/10 bg-white/[0.04] text-violet-200 hover:border-violet-300/40 hover:bg-violet-400/10"}`}
+            >
+              <WandSparkles size={16} />
+              Auto-Fill All
+            </button>
+          </div>
+
+          <DashboardCard className="p-5 sm:p-6" dark={dark}>
+            <div className="flex items-center justify-between gap-3">
+              <h4 className={`flex items-center gap-2 text-lg font-extrabold tracking-tight sm:text-[1.4rem] ${headingClass}`}>
+                <span className={`grid h-5 w-5 place-items-center rounded-md border text-xs font-bold ${isLight ? "border-violet-200 bg-violet-50 text-pink-500" : "border-white/10 bg-white/5 text-pink-300"}`}>
+                  IG
+                </span>
+                Instagram Caption
+              </h4>
+              <button className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold ${isLight ? "border-violet-200 bg-violet-50 text-violet-700" : "border-white/10 bg-white/[0.04] text-violet-200"}`}>
+                <Sparkles size={14} />
+                Magic Write
+              </button>
+            </div>
+            <textarea
+              value={instagramCaption}
+              onChange={(event) => setInstagramCaption(event.target.value)}
+              placeholder="Write a Instagram caption..."
+              className={`mt-4 min-h-[132px] w-full resize-none rounded-2xl border px-4 py-4 text-sm outline-none ${inputClass}`}
+            />
+            <div className={`mt-3 flex justify-end text-xs ${mutedClass}`}>
+              <span className={isLight ? "text-slate-500" : "text-slate-400"}>{instagramCaption.length.toLocaleString()} / 2,200</span>
+            </div>
+            <div className={`mt-5 flex items-start justify-between gap-3 border-t pt-4 ${isLight ? "border-violet-100" : "border-white/[0.08]"}`}>
+              <div>
+                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                  <span className={`inline-flex h-4 w-4 items-center justify-center rounded-full border text-[10px] ${isLight ? "border-violet-200 text-violet-500" : "border-white/[0.08] text-slate-400"}`}>
+                    i
+                  </span>
+                  Hashtags
+                </p>
+                <p className={`mt-2 max-w-md text-xs leading-relaxed ${isLight ? "text-slate-500" : "text-slate-500"}`}>
+                  Write a caption, then refresh for Instagram-specific hashtag suggestions.
+                </p>
+              </div>
+              <button className={`mt-1 text-sm font-semibold transition ${isLight ? "text-violet-600 hover:text-violet-700" : "text-violet-300 hover:text-violet-200"}`}>
+                Refresh
+              </button>
+            </div>
+          </DashboardCard>
+
+          <DashboardCard className="p-5 sm:p-6" dark={dark}>
+            <div className="flex items-center justify-between gap-3">
+              <h4 className={`flex items-center gap-2 text-lg font-extrabold tracking-tight sm:text-[1.4rem] ${headingClass}`}>
+                <span className={`grid h-5 w-5 place-items-center rounded-md border text-xs font-bold ${isLight ? "border-violet-200 bg-violet-50 text-blue-500" : "border-white/10 bg-white/5 text-blue-300"}`}>
+                  in
+                </span>
+                LinkedIn Caption
+              </h4>
+              <button className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold ${isLight ? "border-violet-200 bg-violet-50 text-violet-700" : "border-white/10 bg-white/[0.04] text-violet-200"}`}>
+                <Sparkles size={14} />
+                Magic Write
+              </button>
+            </div>
+            <textarea
+              value={linkedinCaption}
+              onChange={(event) => setLinkedinCaption(event.target.value)}
+              placeholder="Write a LinkedIn caption..."
+              className={`mt-4 min-h-[132px] w-full resize-none rounded-2xl border px-4 py-4 text-sm outline-none ${inputClass}`}
+            />
+            <div className={`mt-3 flex justify-end text-xs ${mutedClass}`}>
+              <span className={isLight ? "text-slate-500" : "text-slate-400"}>{linkedinCaption.length.toLocaleString()} / 3,000</span>
+            </div>
+            <div className={`mt-5 flex items-start justify-between gap-3 border-t pt-4 ${isLight ? "border-violet-100" : "border-white/[0.08]"}`}>
+              <div>
+                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                  <span className={`inline-flex h-4 w-4 items-center justify-center rounded-full border text-[10px] ${isLight ? "border-violet-200 text-violet-500" : "border-white/[0.08] text-slate-400"}`}>
+                    i
+                  </span>
+                  Hashtags
+                </p>
+                <p className={`mt-2 max-w-md text-xs leading-relaxed ${isLight ? "text-slate-500" : "text-slate-500"}`}>
+                  Write a caption, then refresh for LinkedIn-specific hashtag suggestions.
+                </p>
+              </div>
+              <button className={`mt-1 text-sm font-semibold transition ${isLight ? "text-violet-600 hover:text-violet-700" : "text-violet-300 hover:text-violet-200"}`}>
+                Refresh
+              </button>
+            </div>
+          </DashboardCard>
+
+          <button className="w-full rounded-[1.5rem] bg-[linear-gradient(135deg,#c2bcff_0%,#a59cf4_100%)] px-6 py-5 text-[1.35rem] font-black tracking-tight text-[#0d0717] shadow-[0_24px_60px_-28px_rgba(139,126,240,0.7)] transition hover:translate-y-[-1px]">
+            Deploy Post
+          </button>
+        </div>
+      </div>
+
+      <div className={`flex flex-col gap-3 border-t pt-4 text-sm lg:flex-row lg:items-center lg:justify-between ${isLight ? "border-violet-100" : "border-white/[0.08]"}`}>
+        <p className="text-slate-500">
+          System Status: <span className="font-semibold text-emerald-400">Optimized</span> | API Latency: <span className={isLight ? "font-semibold text-slate-900" : "font-semibold text-white"}>2116ms</span>
+        </p>
+        <p className="text-sky-400">
+          <span className="font-semibold text-sky-400">AI Insight:</span> Posts with a hook in the first line get more saves - try Magic Write if you&apos;re stuck.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function AnalyticsDashboard({ dark = true }) {
   const [activeTab, setActiveTab] = useState("Analytics");
   const active = tabs.find((tab) => tab.label === activeTab) ?? tabs[1];
@@ -457,6 +760,7 @@ export default function AnalyticsDashboard({ dark = true }) {
     Analytics: <AnalyticsContent dark={dark} />,
     "Content calendar": <CalendarContent dark={dark} />,
     "Repurpose studio": <StudioContent dark={dark} />,
+    "Create Post": <CreatePostContent dark={dark} />,
   }[activeTab];
   const isLight = !dark;
   const rootClass = isLight
