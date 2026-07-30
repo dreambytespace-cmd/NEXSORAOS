@@ -23,7 +23,7 @@ export default function LegalNavbar({ activePage }) {
   const [dark, setDark] = useState(getThemeFromStorage);
   const isTerms = activePage === "terms";
   const legalLabel = isTerms ? "Privacy" : "Terms";
-  const legalHref = isTerms ? "/privacy-policy" : "/terms-and-conditions";
+  const legalHref = isTerms ? "/privacy-conditions" : "/terms-and-conditions";
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");

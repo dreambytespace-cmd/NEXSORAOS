@@ -1,0 +1,40 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy-conditions"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy-policy.jsx"
+  to = "/privacy-conditions"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy-conditions"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy-conditions.jsx"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/TermsConditionsPage.jsx"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/TermsConditionsPage.jsx"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -109,7 +109,7 @@ const TermsConditionsPage = () => {
             <div className="text-sm text-secondary">© 2026 Nexora OS. All rights reserved.</div>
             <div className="flex items-center gap-6">
               <a href="/" className="text-sm text-secondary no-underline hover:text-primary transition-colors">Home</a>
-              <a href="/privacy-policy" className="text-sm text-secondary no-underline hover:text-primary transition-colors">Privacy Policy</a>
+              <a href="/privacy-conditions" className="text-sm text-secondary no-underline hover:text-primary transition-colors">Privacy Policy</a>
             </div>
           </div>
         </footer>

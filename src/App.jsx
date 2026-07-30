@@ -127,17 +127,24 @@ const faqs = [
 function App() {
   const [dark, setDark] = useState(() => localStorage.getItem("nexora-theme") !== "light");
   const pathname = window.location.pathname.replace(/\/$/, "");
+  const isPrivacyPage =
+    pathname === "/privacy-policy" ||
+    pathname === "/privacy-policy.html" ||
+    pathname === "/privacy-conditions" ||
+    pathname === "/privacy-conditions.html";
+  const isTermsPage =
+    pathname === "/terms-and-conditions" || pathname === "/terms-and-conditions.html";
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
     localStorage.setItem("nexora-theme", dark ? "dark" : "light");
   }, [dark]);
 
-  if (pathname === "/privacy-policy" || pathname === "/privacy-policy.html") {
+  if (isPrivacyPage) {
     return <PrivacyPolicyPage />;
   }
 
-  if (pathname === "/terms-and-conditions" || pathname === "/terms-and-conditions.html") {
+  if (isTermsPage) {
     return <TermsConditionsPage />;
   }
 
@@ -248,7 +255,7 @@ function App() {
             <div className="text-center sm:text-left">
               <p>&copy; 2026 Nexora OS. Built for creators with momentum.</p>
               <div className="mt-2 flex flex-wrap items-center justify-center gap-4 text-xs text-secondary sm:justify-start">
-                <a className="transition hover:text-primary" href="/privacy-policy">
+                <a className="transition hover:text-primary" href="/privacy-conditions">
                   Privacy Policy
                 </a>
                 <a className="transition hover:text-primary" href="/terms-and-conditions">
